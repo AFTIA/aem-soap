@@ -77,22 +77,16 @@
                             <type>zip</type>
                             <target>/apps/aem-soap-packages/application/install</target>
                         </embedded>
+                        <!-- Soap Dependency Embed -->
                         <embedded>
-                            <groupId>com.adobe.cq</groupId>
-                            <artifactId>core.wcm.components.content</artifactId>
-                            <type>zip</type>
-                            <target>/apps/aem-soap-vendor-packages/application/install</target>
+                            <groupId>org.osgi</groupId>
+                            <artifactId>osgi.cmpn</artifactId>
+                            <target>/apps/aem-soap-packages/vendor/install</target>
                         </embedded>
                         <embedded>
-                            <groupId>com.adobe.cq</groupId>
-                            <artifactId>core.wcm.components.core</artifactId>
-                            <target>/apps/aem-soap-vendor-packages/application/install</target>
-                        </embedded>
-                        <embedded>
-                            <groupId>com.adobe.cq</groupId>
-                            <artifactId>core.wcm.components.config</artifactId>
-                            <type>zip</type>
-                            <target>/apps/aem-soap-vendor-packages/application/install</target>
+                            <groupId>org.apache.cxf.dosgi</groupId>
+                            <artifactId>cxf-dosgi-ri-singlebundle-distribution</artifactId>
+                            <target>/apps/aem-soap-packages/vendor/install</target>
                         </embedded>
                     </embeddeds>
                 </configuration>
@@ -211,6 +205,15 @@
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.config</artifactId>
             <type>zip</type>
+        </dependency>
+        <!-- SOAP Dependencies -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.cmpn</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf.dosgi</groupId>
+            <artifactId>cxf-dosgi-ri-singlebundle-distribution</artifactId>
         </dependency>
     </dependencies>
 </project>
