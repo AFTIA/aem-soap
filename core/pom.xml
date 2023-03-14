@@ -44,6 +44,7 @@
                         <configuration>
                             <bnd><![CDATA[
 Import-Package: javax.annotation;version=0.0.0,*
+Bundle-Activator: me.guillaumecle.aem.soap.core.activators.CXFActivator
                                 ]]></bnd>
                         </configuration>
                     </execution>

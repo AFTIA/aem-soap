@@ -1,7 +1,9 @@
 package me.guillaumecle.aem.soap.core.activators;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -11,6 +13,9 @@ import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.Designate;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
@@ -20,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import me.guillaumecle.aem.soap.core.endpoints.GreeterService;
 import me.guillaumecle.aem.soap.core.endpoints.GreeterServiceImpl;
 import me.guillaumecle.aem.soap.core.services.CXFService;
+import me.guillaumecle.aem.soap.core.services.CXFServiceInterface;
 
 /**
  * @see https://cxf.apache.org/distributed-osgi-greeter-demo-walkthrough.html
@@ -35,6 +41,12 @@ public class CXFActivator implements BundleActivator {
     private static ServiceRegistration registration;
     private static BundleContext bundleContext;
     private static Dictionary<String, String> props;
+
+    @Reference(	policy = ReferencePolicy.DYNAMIC, 
+				cardinality = ReferenceCardinality.MULTIPLE,
+				bind="bindModelList",
+				unbind="unbindModelList")
+	private volatile List<CXFService> cxfServices;
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
@@ -59,13 +71,13 @@ public class CXFActivator implements BundleActivator {
 
     @Override
     public void start(BundleContext context) throws Exception {
-        log.debug("Starting CXF Bundle");
+        log.info("Starting CXF Bundle");
         bundleContext = context;
     }
 
     @Override
     public void stop(BundleContext context) throws Exception {
-        log.debug("Stopping CXF Bundle");
+        log.info("Stopping CXF Bundle");
 
         if(registration != null){
             registration.unregister();
@@ -89,8 +101,26 @@ public class CXFActivator implements BundleActivator {
         //     registration = context.registerService(CXFService.class.getName(), reference, props);
         // }
         //Potential to register interceptors via interface registration
+        // https://bitbucket.org/aftia/aftia-fbp/src/master/fbp/core/src/main/java/com/aftia/fbp/core/PojoWorkflowImpl.java
 
         // ServiceReference<?>[] references = bundleContext.getAllServiceReferences(CXFService.class.getName(), null);
-        registration = bundleContext.registerService(GreeterService.class.getName(), new GreeterServiceImpl(), props);
+
+        // log.info("Svcs:" + references.length);
     }
+
+    protected synchronized void bindModelList(CXFService cxfService) {
+		if (null == cxfServices) {
+			cxfServices = new ArrayList<CXFService>();
+		}
+		
+		cxfServices.add(cxfService);
+
+        registration = bundleContext.registerService(cxfService.getClass().getAnnotation(CXFServiceInterface.class).wsdlInterface().getName(), cxfService, props);
+		log.info("Bound service implementation: [" + cxfService.getClass().getName() + "].");
+	}
+	
+	protected synchronized void unbindModelList(CXFService cxfService) {
+		cxfServices.remove(cxfService);
+		log.info("Unbound service implementation: [" + cxfService.getClass().getName() + "].");
+	}
 }
