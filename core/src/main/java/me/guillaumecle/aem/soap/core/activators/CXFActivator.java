@@ -24,6 +24,9 @@ import me.guillaumecle.aem.soap.core.services.CXFService;
 import me.guillaumecle.aem.soap.core.services.CXFServiceInterface;
 
 /**
+ * Apache CXF Activator that allows SOAP-based services to be exposed via OSGi.
+ * 
+ * @author Guillaume Clement
  * @see https://cxf.apache.org/distributed-osgi-greeter-demo-walkthrough.html
  */
 @Component(service = BundleActivator.class,
