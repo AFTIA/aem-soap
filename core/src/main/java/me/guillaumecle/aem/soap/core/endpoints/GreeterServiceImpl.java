@@ -6,8 +6,8 @@ import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import me.guillaumecle.aem.soap.core.annotations.CXFServiceInterface;
 import me.guillaumecle.aem.soap.core.services.CXFService;
-import me.guillaumecle.aem.soap.core.services.CXFServiceInterface;
 
 @WebService
 @Component(service = CXFService.class)

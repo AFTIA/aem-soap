@@ -20,8 +20,8 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import me.guillaumecle.aem.soap.core.annotations.CXFServiceInterface;
 import me.guillaumecle.aem.soap.core.services.CXFService;
-import me.guillaumecle.aem.soap.core.services.CXFServiceInterface;
 
 /**
  * Apache CXF Activator that allows SOAP-based services to be exposed via OSGi.
@@ -98,6 +98,10 @@ public class CXFActivator implements BundleActivator {
 
         try {
             serviceInterface = cxfService.getClass().getAnnotation(CXFServiceInterface.class);
+
+            if(null == serviceInterface){
+                throw new NullPointerException("Service annotation is null.");
+            }
 
             ServiceRegistration<?> registration = bundleContext.registerService(serviceInterface.wsdlInterface().getName(), cxfService, props);
             holder.setRegistration(registration);

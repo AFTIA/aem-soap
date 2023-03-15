@@ -1,4 +1,4 @@
-package me.guillaumecle.aem.soap.core.services;
+package me.guillaumecle.aem.soap.core.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
