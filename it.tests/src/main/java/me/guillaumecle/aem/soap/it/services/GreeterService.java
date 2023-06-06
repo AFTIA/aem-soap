@@ -1,4 +1,4 @@
-package me.guillaumecle.aem.soap.core.endpoints;
+package me.guillaumecle.aem.soap.it.services;
 
 import javax.jws.WebService;
 
