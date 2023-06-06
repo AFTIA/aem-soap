@@ -108,7 +108,7 @@ public class CXFActivator implements BundleActivator {
 
             registrationHolders.add(holder);
 
-            log.info("Bound service implementation: [" + cxfService.getClass().getName() + "].");
+            log.info("Bound service implementation: [{}].", cxfService.getClass().getName());
         } catch (NullPointerException e) {
             throw new Exception("Service registration is missing a valid @CXFServiceInterface annotation.", e);
         }
