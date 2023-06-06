@@ -13,9 +13,7 @@
     <module>all</module>
     <module>core</module>
     <module>ui.config</module>
-    <module>ui.content</module>
     <module>it.tests</module>
-    <module>ui.tests</module>
   </modules>
   <properties>
     <aem.host>localhost</aem.host>
