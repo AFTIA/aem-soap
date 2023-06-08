@@ -211,10 +211,5 @@ Bundle-Activator: me.guillaumecle.aem.soap.core.activators.CXFActivator
             <version>1.4.4</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>me.guillaumecle.aem</groupId>
-            <artifactId>aem-soap.lib</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 </project>
