@@ -3,6 +3,6 @@
     "me.guillaumecle.aem.soap"
   ],
   "org.apache.sling.commons.log.level": "INFO",
-  "org.apache.sling.commons.log.file": "logs/error.log",
+  "org.apache.sling.commons.log.file": "logs/aem-soap.log",
   "org.apache.sling.commons.log.additiv": "false"
 }

@@ -1,6 +1,6 @@
-# Sample AEM project template
+# AEM SOAP Services
 
-This is a project template for AEM-based applications. It is intended as a best-practice set of examples as well as a potential starting point to develop your own functionality.
+This project contains a deployable library that enables the creation and publishing of OSGI-based SOAP services with automatic WSDL generation via the use of Apache CXF.
 
 ## Modules
 
@@ -8,13 +8,8 @@ The main parts of the template are:
 
 * core: Java bundle containing all core functionality like OSGi services, listeners or schedulers, as well as component-related Java code such as servlets or request filters.
 * it.tests: Java based integration tests
-* ui.apps: contains the /apps (and /etc) parts of the project, ie JS&CSS clientlibs, components, and templates
-* ui.content: contains sample content using the components from the ui.apps
 * ui.config: contains runmode specific OSGi configs for the project
-* ui.frontend: an optional dedicated front-end build mechanism (Angular, React or general Webpack project)
-* ui.tests: Selenium based UI tests
 * all: a single content package that embeds all of the compiled modules (bundles and content packages) including any vendor dependencies
-* analyse: this module runs analysis on the project which provides additional validation for deploying into AEMaaCS
 
 ## How to build
 
@@ -83,44 +78,98 @@ recommended [best
 practices](https://github.com/adobe/aem-testing-clients/wiki/Best-practices) to
 be put in use when writing integration tests for AEM.
 
-## Static Analysis
-
-The `analyse` module performs static analysis on the project for deploying into AEMaaCS. It is automatically
-run when executing
-
-    mvn clean install
-
-from the project root directory. Additional information about this analysis and how to further configure it
-can be found here https://github.com/adobe/aemanalyser-maven-plugin
-
-### UI tests
-
-They will test the UI layer of your AEM application using Selenium technology. 
-
-To run them locally:
-
-    mvn clean verify -Pui-tests-local-execution
-
-This default command requires:
-* an AEM author instance available at http://localhost:4502 (with the whole project built and deployed on it, see `How to build` section above)
-* Chrome browser installed at default location
-
-Check README file in `ui.tests` module for more details.
-
-## ClientLibs
-
-The frontend module is made available using an [AEM ClientLib](https://helpx.adobe.com/experience-manager/6-5/sites/developing/using/clientlibs.html). When executing the NPM build script, the app is built and the [`aem-clientlib-generator`](https://github.com/wcm-io-frontend/aem-clientlib-generator) package takes the resulting build output and transforms it into such a ClientLib.
-
-A ClientLib will consist of the following files and directories:
-
-- `css/`: CSS files which can be requested in the HTML
-- `css.txt` (tells AEM the order and names of files in `css/` so they can be merged)
-- `js/`: JavaScript files which can be requested in the HTML
-- `js.txt` (tells AEM the order and names of files in `js/` so they can be merged
-- `resources/`: Source maps, non-entrypoint code chunks (resulting from code splitting), static assets (e.g. icons), etc.
-
 ## Maven settings
 
 The project comes with the auto-public repository configured. To setup the repository in your Maven settings, refer to:
 
     http://helpx.adobe.com/experience-manager/kb/SetUpTheAdobeMavenRepository.html
+
+## Creating WSDLs
+
+Creating and registering WSDLs can be done by annotating classes via both OSGI annotations and CXF annotations that are exposed by the `core` module of this project.
+
+### Adding the Core bundle as a dependency
+
+To start, add the `core` bundle as a dependency to your project:
+
+```
+<dependency>
+    <groupId>me.guillaumecle.aem</groupId>
+    <artifactId>aem-soap.core</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+### Annotate your service
+
+Once you've added the dependency to you own module, you can start annotating your OSGI service with CXF annotations.
+
+You will need a new interface to define your service, e.g.:
+
+```
+package me.guillaumecle.aem.soap.it.services;
+
+import javax.jws.WebService;
+
+@WebService
+public interface GreeterService {
+    public String sayHi(String message);
+}
+```
+
+This interface is ready to be registed as a web service via the use of the `@WebService` annotations. A sample is available here: `./it.tests/src/main/java/me/guillaumecle/aem/soap/it/services/GreeterService.java`
+
+With an interface created, you can now create your implementation class, e.g.:
+
+```
+package me.guillaumecle.aem.soap.it.services;
+
+import javax.jws.WebService;
+
+import org.osgi.service.component.annotations.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import me.guillaumecle.aem.soap.core.annotations.CXFServiceInterface;
+import me.guillaumecle.aem.soap.core.services.CXFService;
+
+@WebService
+@Component(service = CXFService.class)
+@CXFServiceInterface(wsdlInterface = GreeterService.class)
+public class GreeterServiceImpl implements CXFService, GreeterService {
+
+    private Logger log = LoggerFactory.getLogger(getClass());
+    
+    static final String NAME = GreeterService.class.getName();
+
+    @Override
+    public String sayHi(String message) {
+        log.info(message);
+        return "Hello";
+    }
+}
+```
+
+This class contains a few more annotations. A sample is available here: `./it.tests/src/main/java/me/guillaumecle/aem/soap/it/services/GreeterServiceImpl.java` The `@WebService` annotation is still present to register the class as a web service. The `@Component` annotation is also present to register this implementation class as an OSGI service. 
+
+Pay close attention to the fact that this class now also implements the `CXFService` interface and registers the `@Component` with `(service = CXFService.class)`. 
+
+With this, we also have a `@CXFServiceInterface(wsdlInterface = GreeterService.class)` annotation that provides additional information to our CXF activator by letting the service know which interface defines the service.
+
+Once completed, deploy your new OSGI bundle to the target AEM server along with the `all` package containing the registration mechanisms, and configurations.
+
+### Testing the WSDL
+
+Once your service is deployed, and all bundles are Active, your WSDL will be accessible at the following URL: `http://<server>:4504/soap/endpoint?wsdl`
+
+## Known Limitations
+
+At the moment, this module allows the creation, publishing, and invocation of SOAP services in an AEM/OSGI context. It does not however fully support the following features at the moment:
+
+* Authentication
+* SSL
+* Apache CXF Interceptors & additional features
+
+### Tested Environments
+
+This module has successfully been tested on AEM Forms `6.5.10` - `6.5.15`.

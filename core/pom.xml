@@ -44,6 +44,7 @@
                         <configuration>
                             <bnd><![CDATA[
 Import-Package: javax.annotation;version=0.0.0,*
+Export-Package: me.guillaumecle.aem.soap.core.*
 Bundle-Activator: me.guillaumecle.aem.soap.core.activators.CXFActivator
                                 ]]></bnd>
                         </configuration>
@@ -209,6 +210,11 @@ Bundle-Activator: me.guillaumecle.aem.soap.core.activators.CXFActivator
             <artifactId>org.apache.sling.models.impl</artifactId>
             <version>1.4.4</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.guillaumecle.aem</groupId>
+            <artifactId>aem-soap.lib</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
