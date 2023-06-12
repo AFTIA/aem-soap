@@ -22,7 +22,7 @@
     <!-- P A R E N T  P R O J E C T  D E S C R I P T I O N                      -->
     <!-- ====================================================================== -->
     <parent>
-        <groupId>me.guillaumecle.aem</groupId>
+        <groupId>com.aftia.aem</groupId>
         <artifactId>aem-soap</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -49,19 +49,19 @@
                 <artifactId>filevault-package-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <group>me.guillaumecle.aem</group>
+                    <group>com.aftia.aem</group>
                     <packageType>container</packageType>
                     <!-- skip sub package validation for now as some vendor packages like CIF apps will not pass -->
                     <skipSubPackageValidation>true</skipSubPackageValidation>
                     <embeddeds>
                         <embedded>
-                            <groupId>me.guillaumecle.aem</groupId>
+                            <groupId>com.aftia.aem</groupId>
                             <artifactId>aem-soap.ui.config</artifactId>
                             <type>zip</type>
                             <target>/apps/aem-soap-packages/application/install</target>
                         </embedded>
                         <embedded>
-                            <groupId>me.guillaumecle.aem</groupId>
+                            <groupId>com.aftia.aem</groupId>
                             <artifactId>aem-soap.core</artifactId>
                             <target>/apps/aem-soap-packages/application/install</target>
                         </embedded>
@@ -166,12 +166,12 @@
     <!-- ====================================================================== -->
     <dependencies>
         <dependency>
-            <groupId>me.guillaumecle.aem</groupId>
+            <groupId>com.aftia.aem</groupId>
             <artifactId>aem-soap.core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>me.guillaumecle.aem</groupId>
+            <groupId>com.aftia.aem</groupId>
             <artifactId>aem-soap.ui.config</artifactId>
             <version>${project.version}</version>
             <type>zip</type>

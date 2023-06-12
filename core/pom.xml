@@ -18,7 +18,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>me.guillaumecle.aem</groupId>
+        <groupId>com.aftia.aem</groupId>
         <artifactId>aem-soap</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -44,8 +44,8 @@
                         <configuration>
                             <bnd><![CDATA[
 Import-Package: javax.annotation;version=0.0.0,*
-Export-Package: me.guillaumecle.aem.soap.core.*
-Bundle-Activator: me.guillaumecle.aem.soap.core.activators.CXFActivator
+Export-Package: com.aftia.aem.soap.core.*
+Bundle-Activator: com.aftia.aem.soap.core.activators.CXFActivator
                                 ]]></bnd>
                         </configuration>
                     </execution>

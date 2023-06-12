@@ -18,7 +18,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>me.guillaumecle.aem</groupId>
+        <groupId>com.aftia.aem</groupId>
         <artifactId>aem-soap</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -64,7 +64,7 @@
             <artifactId>org.osgi.annotation.versioning</artifactId>
         </dependency>
         <dependency>
-            <groupId>me.guillaumecle.aem</groupId>
+            <groupId>com.aftia.aem</groupId>
             <artifactId>aem-soap.core</artifactId>
             <version>${project.version}</version>
         </dependency>

@@ -6,7 +6,7 @@
     <!-- P A R E N T  P R O J E C T  D E S C R I P T I O N                      -->
     <!-- ====================================================================== -->
     <parent>
-        <groupId>me.guillaumecle.aem</groupId>
+        <groupId>com.aftia.aem</groupId>
         <artifactId>aem-soap</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>

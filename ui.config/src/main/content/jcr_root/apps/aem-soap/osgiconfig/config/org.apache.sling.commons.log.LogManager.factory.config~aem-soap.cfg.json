@@ -1,6 +1,6 @@
 {
   "org.apache.sling.commons.log.names": [
-    "me.guillaumecle.aem.soap"
+    "com.aftia.aem.soap"
   ],
   "org.apache.sling.commons.log.level": "INFO",
   "org.apache.sling.commons.log.file": "logs/aem-soap.log",

@@ -94,7 +94,7 @@ To start, add the `core` bundle as a dependency to your project:
 
 ```
 <dependency>
-    <groupId>me.guillaumecle.aem</groupId>
+    <groupId>com.aftia.aem</groupId>
     <artifactId>aem-soap.core</artifactId>
     <version>1.0.0</version>
 </dependency>
@@ -107,7 +107,7 @@ Once you've added the dependency to you own module, you can start annotating you
 You will need a new interface to define your service, e.g.:
 
 ```
-package me.guillaumecle.aem.soap.it.services;
+package com.aftia.aem.soap.it.services;
 
 import javax.jws.WebService;
 
@@ -117,12 +117,12 @@ public interface GreeterService {
 }
 ```
 
-This interface is ready to be registed as a web service via the use of the `@WebService` annotations. A sample is available here: `./it.tests/src/main/java/me/guillaumecle/aem/soap/it/services/GreeterService.java`
+This interface is ready to be registed as a web service via the use of the `@WebService` annotations. A sample is available here: `./it.tests/src/main/java/com/aftia/aem/soap/it/services/GreeterService.java`
 
 With an interface created, you can now create your implementation class, e.g.:
 
 ```
-package me.guillaumecle.aem.soap.it.services;
+package com.aftia.aem.soap.it.services;
 
 import javax.jws.WebService;
 
@@ -130,8 +130,8 @@ import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import me.guillaumecle.aem.soap.core.annotations.CXFServiceInterface;
-import me.guillaumecle.aem.soap.core.services.CXFService;
+import com.aftia.aem.soap.core.annotations.CXFServiceInterface;
+import com.aftia.aem.soap.core.services.CXFService;
 
 @WebService
 @Component(service = CXFService.class)
@@ -150,7 +150,7 @@ public class GreeterServiceImpl implements CXFService, GreeterService {
 }
 ```
 
-This class contains a few more annotations. A sample is available here: `./it.tests/src/main/java/me/guillaumecle/aem/soap/it/services/GreeterServiceImpl.java` The `@WebService` annotation is still present to register the class as a web service. The `@Component` annotation is also present to register this implementation class as an OSGI service. 
+This class contains a few more annotations. A sample is available here: `./it.tests/src/main/java/com/aftia/aem/soap/it/services/GreeterServiceImpl.java` The `@WebService` annotation is still present to register the class as a web service. The `@Component` annotation is also present to register this implementation class as an OSGI service. 
 
 Pay close attention to the fact that this class now also implements the `CXFService` interface and registers the `@Component` with `(service = CXFService.class)`. 
 
