@@ -29,11 +29,11 @@ Or alternatively
 
     mvn clean install -PautoInstallSinglePackage -Daem.port=4503
 
-Or to deploy only the bundle to the author, run
+Or to deploy only the bundles (`core` and `it.tests`) to the author, run
 
     mvn clean install -PautoInstallBundle
 
-Or to deploy only a single content package, run in the sub-module directory (i.e `ui.apps`)
+Or to deploy only a single content package, run in the sub-module directory (i.e `ui.config`)
 
     mvn clean install -PautoInstallPackage
 
@@ -51,7 +51,7 @@ test, execute:
 ### Integration tests
 
 This allows running integration tests that exercise the capabilities of AEM via
-HTTP calls to its API. To run the integration tests, run:
+HTTP calls to its API. To run the integration tests, run (note, bundles must be deployed first):
 
     mvn clean verify -Plocal
 
