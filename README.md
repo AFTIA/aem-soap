@@ -162,6 +162,14 @@ Once completed, deploy your new OSGI bundle to the target AEM server along with 
 
 Once your service is deployed, and all bundles are Active, your WSDL will be accessible at the following URL: `http://<server>:4504/soap/endpoint?wsdl`
 
+## Manual Deployment
+
+The dependencies required to enable SOAP support are all included in the `all` package that can be deployed to an AEM instance via Package Manager, but if for some reason one wishes to deploy bundles manually, the following combination can be used to enable SOAP support:
+
+* [osgi.cmpn](https://mvnrepository.com/artifact/org.osgi/osgi.cmpn/4.3.1)
+* [cxf-dosgi-ri-singlebundle-distribution](https://mvnrepository.com/artifact/org.apache.cxf.dosgi/cxf-dosgi-ri-singlebundle-distribution/1.3.1)
+* aem-soap.core
+
 ## Known Limitations
 
 At the moment, this module allows the creation, publishing, and invocation of SOAP services in an AEM/OSGI context. It does not however fully support the following features at the moment:

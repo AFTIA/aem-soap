@@ -51,11 +51,12 @@
                     </properties>
                     <packageType>container</packageType>
                     <showImportPackageReport>false</showImportPackageReport>
-                    <filters>
-                        <!-- /apps root -->
-                        <filter><root>/apps</root></filter>
-                        <filter><root>/apps/aem-soap</root></filter>
-                    </filters>
+                    <repositoryStructurePackages>
+                        <repositoryStructurePackage>
+                            <groupId>me.guillaumecle.aem</groupId>
+                            <artifactId>aem-soap.ui.apps.structure</artifactId>
+                        </repositoryStructurePackage>
+                    </repositoryStructurePackages>
                 </configuration>
             </plugin>
             <plugin>
@@ -64,4 +65,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>me.guillaumecle.aem</groupId>
+            <artifactId>aem-soap.ui.apps.structure</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+    </dependencies>
 </project>
