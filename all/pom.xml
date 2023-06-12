@@ -24,7 +24,7 @@
     <parent>
         <groupId>me.guillaumecle.aem</groupId>
         <artifactId>aem-soap</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -56,13 +56,13 @@
                     <embeddeds>
                         <embedded>
                             <groupId>me.guillaumecle.aem</groupId>
-                            <artifactId>aem-soap.core</artifactId>
+                            <artifactId>aem-soap.ui.config</artifactId>
+                            <type>zip</type>
                             <target>/apps/aem-soap-packages/application/install</target>
                         </embedded>
                         <embedded>
                             <groupId>me.guillaumecle.aem</groupId>
-                            <artifactId>aem-soap.ui.config</artifactId>
-                            <type>zip</type>
+                            <artifactId>aem-soap.core</artifactId>
                             <target>/apps/aem-soap-packages/application/install</target>
                         </embedded>
                         <!-- Soap Dependency Embed -->
@@ -174,16 +174,6 @@
             <groupId>me.guillaumecle.aem</groupId>
             <artifactId>aem-soap.ui.config</artifactId>
             <version>${project.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>com.adobe.cq</groupId>
-            <artifactId>core.wcm.components.content</artifactId>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>com.adobe.cq</groupId>
-            <artifactId>core.wcm.components.config</artifactId>
             <type>zip</type>
         </dependency>
         <!-- SOAP Dependencies -->

@@ -6,7 +6,7 @@
   <groupId>me.guillaumecle.aem</groupId>
   <artifactId>aem-soap</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>AEM Soap Services</name>
   <description>AEM Soap Services</description>
   <modules>
