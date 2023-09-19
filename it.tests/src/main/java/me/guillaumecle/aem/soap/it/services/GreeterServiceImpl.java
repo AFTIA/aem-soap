@@ -11,7 +11,7 @@ import me.guillaumecle.aem.soap.core.services.CXFService;
 
 @WebService
 @Component(service = CXFService.class)
-@CXFServiceInterface(wsdlInterface = GreeterService.class)
+@CXFServiceInterface(wsdlInterface = GreeterService.class, address = "http://0.0.0.0:4504/soap/endpoint/greeter")
 public class GreeterServiceImpl implements CXFService, GreeterService {
 
     private Logger log = LoggerFactory.getLogger(getClass());
